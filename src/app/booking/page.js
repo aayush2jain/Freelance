@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Suspense } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -48,6 +48,7 @@ function AppointmentBooking() {
   }, [date]);
 
   return (
+     <Suspense fallback={<div>Loading...</div>}>
      <div className="p-4 max-w-lg mx-auto my-10 bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-semibold text-center mb-4">Book a Demo</h1>
       <div className="mb-4">
@@ -103,6 +104,7 @@ function AppointmentBooking() {
       {/* Success Message */}
       {message && <p className="mt-4 text-green-600 text-xl text-center">{message}</p>}
     </div>
+    </Suspense>
   );
 }
 

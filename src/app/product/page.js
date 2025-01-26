@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,Suspense } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
@@ -58,6 +58,7 @@ const Page = () => {
 
   return (
    <>
+   <Suspense fallback={<div>Loading...</div>}>
   {/* Navbar */}
   <div className="w-full py-4 flex items-center bg-white shadow-md">
     <h1 className="text-2xl font-bold text-green-700 ml-8">WepreOrder</h1>
@@ -187,6 +188,7 @@ const Page = () => {
       </Link>
     </div>
   </div>
+  </Suspense>
 </>
 
   );
