@@ -9,7 +9,7 @@ function AdminBookings() {
   // Fetch all bookings
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/admin/bookings");
+      const response = await axios.get("https://freelancebackend.vercel.app/admin/bookings");
       setBookings(response.data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
@@ -19,7 +19,7 @@ function AdminBookings() {
   // Update booking status
   const updateStatus = async (id, status) => {
     try {
-      const response = await axios.put(`http://localhost:4000/admin/bookings/${id}`, { status });
+      const response = await axios.put(`https://freelancebackend.vercel.app/admin/bookings/${id}`, { status });
       setMessage(response.data.message);
       fetchBookings(); // Refresh bookings after update
     } catch (error) {

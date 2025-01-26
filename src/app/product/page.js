@@ -20,7 +20,7 @@ const Page = () => {
 
   const getUser = async () => {
     try {
-      const url = `http://localhost:4000/user/getuser`;
+      const url = `https://freelancebackend.vercel.app/user/getuser`;
       const response = await axios.get(url, { withCredentials: true });
       setUserDetails(response.data);
     } catch (error) {
@@ -32,7 +32,7 @@ const Page = () => {
 
   const fetchProducts = async () => {
     try {
-      const url = `http://localhost:4000/product/${productId}`;
+      const url = `https://freelancebackend.vercel.app/product/${productId}`;
       const response = await axios.get(url, { withCredentials: true });
       setProductDetails(response.data);
       setMainImage(response.data.image[0]); // Set default main image

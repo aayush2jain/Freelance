@@ -31,7 +31,7 @@ const OrderForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://freelancebackend.vercel.app';
       const response = await axios.post(
         `${API_URL}/user/order`,
         {
@@ -69,7 +69,7 @@ const OrderForm = () => {
     const currency = "INR";
 
     // Step 1: Create an order in your backend
-    const response = await axios.post("http://localhost:4000/payment/", {
+    const response = await axios.post("https://freelancebackend.vercel.app/payment/", {
       amount: productprice*quantity* 100, // Convert to subunits
       receipt: productId,
       currency,
@@ -89,7 +89,7 @@ const OrderForm = () => {
       handler: async function (response) {
         // Step 3: Verify the payment in your backend
         const verificationResponse = await axios.post(
-          "http://localhost:4000/payment/verification",
+          "https://freelancebackend.vercel.app/payment/verification",
           {
             paymentResponse: response, // Pass the entire Razorpay response
           }

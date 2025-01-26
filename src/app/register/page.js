@@ -23,7 +23,7 @@ const Register = () => {
         console.log({ email, contact, password });
         setLoading(true);
     try {
-      const response = await axios.post('http://localhost:4000/user/register',{
+      const response = await axios.post('https://freelancebackend.vercel.app/user/register',{
         email,contact,password
       }, {
         headers: {

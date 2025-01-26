@@ -35,7 +35,7 @@ const FormWithImages = () => {
         data.append(key, formData[key]);
       });
 
-      const response = await axios.post("http://localhost:4000/product/create", data, {
+      const response = await axios.post("https://freelancebackend.vercel.app/product/create", data, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });

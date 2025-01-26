@@ -18,7 +18,7 @@ function AppointmentBooking() {
 
   const fetchSlots = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/appointment/slots", { params: { date } });
+      const response = await axios.get("https://freelancebackend.vercel.app/appointment/slots", { params: { date } });
       setSlots(response.data.availableSlots);
       console.log(response.data.availableSlots);
     } catch (error) {
@@ -28,7 +28,7 @@ function AppointmentBooking() {
 
   const bookSlot = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/appointment/book", {
+      const response = await axios.post("https://freelancebackend.vercel.app/appointment/book", {
         username:name,
         userId,
         productName,

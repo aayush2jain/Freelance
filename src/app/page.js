@@ -20,7 +20,7 @@ export default function ImagesSliderDemo() {
     // Fetch product details
   const fetchProducts = async () => {
     try {
-      const url = `http://localhost:4000/product/getall`;
+      const url = `https://freelancebackend.vercel.app/product/getall`;
       const response = await axios.get(url, { withCredentials: true });
       setProductDetails(response.data.products);
       console.log("productDetails",response.data.products);

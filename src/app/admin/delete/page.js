@@ -10,7 +10,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/product/getall");
+        const response = await axios.get("https://freelancebackend.vercel.app/product/getall");
         setProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -23,7 +23,7 @@ const ProductList = () => {
   // Delete product handler
   const deleteProduct = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:4000/admin/product/${id}`);
+      const response = await axios.delete(`https://freelancebackend.vercel.app/admin/product/${id}`);
       setMessage(response.data.message);
 
       // Remove the deleted product from the UI
