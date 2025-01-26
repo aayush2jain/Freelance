@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState,Suspense } from 'react';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -217,5 +217,11 @@ const OrderForm = () => {
 
   );
 };
-
-export default OrderForm;
+const Page = () => {
+  return(
+    <Suspense fallback={<div>Loading...</div>}>
+    <OrderForm />
+    </Suspense>
+    )
+  }
+export default Page;

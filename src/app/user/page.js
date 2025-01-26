@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Suspense } from "react";
 import axios from "axios";
 
 const UserOrders = () => {
@@ -115,5 +115,11 @@ const UserOrders = () => {
     </div>
   );
 };
-
-export default UserOrders;
+const Page = () => {
+  return(
+    <Suspense fallback={<div>Loading...</div>}>
+    <UserOrders/>
+    </Suspense>
+    )
+  }
+export default Page;

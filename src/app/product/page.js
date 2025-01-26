@@ -193,5 +193,11 @@ const Page = () => {
 
   );
 };
-
-export default Page;
+const ProductPage = () => {
+  return(
+    <Suspense fallback={<div>Loading...</div>}>
+    <Page/>
+    </Suspense>
+    )
+  }
+export default ProductPage;
