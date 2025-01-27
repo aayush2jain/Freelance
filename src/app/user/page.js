@@ -1,23 +1,38 @@
 "use client";
-import React, { useState, useEffect,Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const UserOrders = () => {
-  const userId = '67908ec63603d803918af25c';
-   const [orders, setOrders] = useState([]);
+  const router = useRouter();
+  const [orders, setOrders] = useState([]);
+  const [userId, setUserId] = useState("");
   const [appointments, setAppointments] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(true);
   const [loadingAppointments, setLoadingAppointments] = useState(true);
   const [errorOrders, setErrorOrders] = useState("");
   const [errorAppointments, setErrorAppointments] = useState("");
-  // Fetch user orders
+
+  // Fetch user details
+  const getUser = async () => {
+    try {
+      const url = `https://freelancebackend.vercel.app/user/getuser`;
+      const response = await axios.get(url, { withCredentials: true });
+      setUserId(response.data._id);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      alert("Please register yourself first.");
+      // router.push("/register");
+    }
+  };
+
   const fetchUserOrders = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/user/order/${userId}`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `https://freelancebackend.vercel.app/user/order/${userId}`,
+        { withCredentials: true }
+      );
       setOrders(response.data.orders);
-      setErrorOrders("");
     } catch (err) {
       console.error("Error fetching orders:", err);
       setErrorOrders("Failed to load orders. Please try again.");
@@ -28,12 +43,11 @@ const UserOrders = () => {
 
   const fetchUserAppointments = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/user/appointement/${userId}`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `https://freelancebackend.vercel.app/user/appointement/${userId}`,
+        { withCredentials: true }
+      );
       setAppointments(response.data.appointments);
-      console.log("apointements",response.data);
-      setErrorAppointments("");
     } catch (err) {
       console.error("Error fetching appointments:", err);
       setErrorAppointments("Failed to load appointments. Please try again.");
@@ -42,6 +56,9 @@ const UserOrders = () => {
     }
   };
 
+  useEffect(() => {
+    getUser();
+  }, []);
 
   useEffect(() => {
     if (userId) {
@@ -49,6 +66,13 @@ const UserOrders = () => {
       fetchUserAppointments();
     }
   }, [userId]);
+
+  const renderSection = (data, loading, error, renderItem, emptyMessage) => {
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
+    if (!data || data.length === 0) return <p>{emptyMessage}</p>;
+    return <ul className="space-y-4">{data.map(renderItem)}</ul>;
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -60,27 +84,19 @@ const UserOrders = () => {
             My Orders
           </h2>
           <div className="h-[50vh] overflow-y-auto p-4">
-            {loadingOrders ? (
-              <p>Loading orders...</p>
-            ) : errorOrders ? (
-              <p className="text-red-500">{errorOrders}</p>
-            ) : orders.length === 0 ? (
-              <p>No orders found.</p>
-            ) : (
-              <ul className="space-y-4">
-                {orders.map((order) => (
-                  <li key={order._id} className="bg-gray-100 p-4 rounded-md shadow">
-                    <h3 className="font-semibold">{order.productName}</h3>
-                    <p>Quantity:{order.quantity}</p>
-                    <p>Price: ₹{order.productprice}</p>
-                    <p>ProductName :{order.productname}</p>
-                    <p>Staus: {order.status}</p>
-                    {/* <p className="text-sm text-gray-600">
-                      Order Date: {new Date(order.date).toLocaleDateString()}
-                    </p> */}
-                  </li>
-                ))}
-              </ul>
+            {renderSection(
+              orders,
+              loadingOrders,
+              errorOrders,
+              (order) => (
+                <li key={order._id} className="bg-gray-100 p-4 rounded-md shadow">
+                  <h3 className="font-semibold">{order.productName}</h3>
+                  <p>Quantity: {order.quantity}</p>
+                  <p>Price: ₹{order.productprice}</p>
+                  <p>Status: {order.status}</p>
+                </li>
+              ),
+              "No orders found."
             )}
           </div>
         </div>
@@ -91,23 +107,21 @@ const UserOrders = () => {
             My Appointments
           </h2>
           <div className="h-[50vh] overflow-y-auto p-4">
-            {loadingAppointments ? (
-              <p>Loading appointments...</p>
-            ) : errorAppointments ? (
-              <p className="text-red-500">{errorAppointments}</p>
-            ) : appointments.length === 0 ? (
-              <p>No appointments found.</p>
-            ) : (
-              <ul className="space-y-4">
-                {appointments.map((appointment) => (
-                  <li key={appointment._id} className="bg-gray-100 p-4 rounded-md shadow">
-                    <h3 className="font-semibold">{appointment.title}</h3>
-                    <p>Date: {new Date(appointment.date).toLocaleDateString()}</p>
-                    <p>Time: {appointment.time}</p>
-                    <p>ProductName:{appointment.productName}</p>
-                  </li>
-                ))}
-              </ul>
+            {renderSection(
+              appointments,
+              loadingAppointments,
+              errorAppointments,
+              (appointment) => (
+                <li
+                  key={appointment._id}
+                  className="bg-gray-100 p-4 rounded-md shadow"
+                >
+                  <h3 className="font-semibold">{appointment.title}</h3>
+                  <p>Date: {new Date(appointment.date).toLocaleDateString()}</p>
+                  <p>Time: {appointment.time}</p>
+                </li>
+              ),
+              "No appointments found."
             )}
           </div>
         </div>
@@ -115,11 +129,11 @@ const UserOrders = () => {
     </div>
   );
 };
-const Page = () => {
-  return(
-    <Suspense fallback={<div>Loading...</div>}>
-    <UserOrders/>
-    </Suspense>
-    )
-  }
+
+const Page = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <UserOrders />
+  </Suspense>
+);
+
 export default Page;

@@ -13,7 +13,7 @@ const Page = () => {
   const [userDetails, setUserDetails] = useState({});
   const [quantities, setQuantities] = useState({});
   const [mainImage, setMainImage] = useState("");
-
+  const [remainingTime, setRemainingTime] = useState(0);
   const handleThumbnailClick = (image) => {
     setMainImage(image);
   };
@@ -34,7 +34,9 @@ const Page = () => {
     try {
       const url = `https://freelancebackend.vercel.app/product/${productId}`;
       const response = await axios.get(url, { withCredentials: true });
+      console.log("Product details:", response.data);
       setProductDetails(response.data);
+      setRemainingTime(response.data.remainingTime);
       setMainImage(response.data.image[0]); // Set default main image
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -45,6 +47,26 @@ const Page = () => {
     fetchProducts();
     getUser();
   }, [productId]);
+
+   useEffect(() => {
+    if (remainingTime > 0) {
+      const timer = setInterval(() => {
+        setRemainingTime((prev) => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(timer); // Cleanup timer on unmount
+    }
+  }, [remainingTime]);
+
+   const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const hrs = hours % 24;
+    const mins = minutes % 60;
+    const secs = seconds % 60;
+    return `${days.toString().padStart(2,"0")}:${hrs.toString().padStart(2,"0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  };
 
   const handleQuantityChange = (id, value) => {
     if (value >= 1) {
@@ -102,6 +124,7 @@ const Page = () => {
     {/* Product Info */}
     <div className="w-full md:w-[60%] p-6">
       <h1 className="text-2xl font-semibold text-center">{product.name}</h1>
+      <h1 className="text-2xl font-semibold">Offer EndsIn:{formatTime(remainingTime)}</h1>
       <h2 className="text-lg font-semibold mt-4">Terms:</h2>
       <p className="text-gray-700 mt-2">{product.description || "No description available."}</p>
 
@@ -187,6 +210,10 @@ const Page = () => {
         </button>
       </Link>
     </div>
+  </div>
+
+  <div className="md:w-[90vw] w-full mx-auto mt-10">
+    <img className="object-cover w-full h-full" src={product.brochure}></img>
   </div>
   </Suspense>
 </>

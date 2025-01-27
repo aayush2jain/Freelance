@@ -44,8 +44,11 @@ export default function ImagesSliderDemo() {
       </div>
     </Link>
     
-    <div id="bookDemo" className="bg-yellow-400 rounded-full px-4 py-2 text-sm sm:text-base cursor-pointer">
+    <div id="bookDemo" className="bg-yellow-400 rounded-full hidden sm:block px-4 py-2 text-sm sm:text-base cursor-pointer">
       <Link href={'/#service'}><h1>Book Demo</h1></Link>
+    </div>
+     <div id="user" className=" rounded-full px-4 py-2 text-sm sm:text-base cursor-pointer">
+      <Link href={'/user'}><FaUserCircle className="text-3xl">Book Demo</FaUserCircle></Link>
     </div>
   </div>
 </div>

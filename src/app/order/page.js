@@ -82,7 +82,7 @@ const OrderForm = () => {
       key: "rzp_test_nKM2ZJwYmvqG01", // Replace with your Razorpay Key ID
       amount,
       currency,
-      name: "MISTHAN", // Your business name
+      name: "WePreOrder", // Your business name
       description: "Test Transaction",
       image: "https://example.com/your_logo", // Replace with your logo URL
       order_id: orderId, // Order ID generated in Step 1
@@ -108,7 +108,7 @@ const OrderForm = () => {
       },
       prefill: {
         name: formData.username, // Use entered username
-        email: "webdevmatrix@example.com", // Default email
+        email: usermail, // Default email
         contact: formData.contact, // Use entered contact
       },
       notes: {
@@ -132,11 +132,45 @@ const OrderForm = () => {
   };
 
   return (
-<div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+<div className="min-h-screen bg-gray-200 flex md:flex-row flex-col items-center justify-center p-4">
+  <div className='w-full  md:w-[50vw] rounded-3xl bg-white'>
+    <div className="bg-white w-full shadow-md rounded-l-3xl py-6">
+          <h2 className="text-2xl font-bold text-center pt-[5vh] mb-6">User Details</h2>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white pl-[5vw] rounded-lg ">
+  <p className="text-lg">
+    <span className="font-semibold">Email:</span> {usermail}
+  </p>
+  <p className="text-lg">
+    <span className="font-semibold">Contact:</span> {contact}
+  </p>
+</div>
+
+          <h2 className="text-xl text-center font-semibold pt-[5vh]  my-4">Order Details</h2>
+          <table className="w-full text-center border-collapse">
+            <thead>
+              <tr className="border-b">
+                <th className="p-2">ProductName</th>
+                <th className="p-2">Quantity</th>
+                <th className="p-2">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr  className="border-b mr-[10vw]">
+                  <td className="p-2">{productname}</td>
+                  <td className="p-2">{quantity}</td>
+                  <td className="p-2">₹{productprice}</td>
+                </tr>
+            </tbody>
+          </table>
+            <div className="mt-4 text-center">
+            <p className="text-lg font-semibold">Total: ₹{productprice*quantity}</p>
+        </div>
+        </div>
+  </div>
   <div className="max-w-md w-full bg-white rounded-xl shadow-md overflow-hidden">
     <div className="p-6">
       <h1 className="text-2xl font-semibold text-center text-gray-800 mb-4">
-        Order Form
+        Contact Form
       </h1>
       <form onSubmit={paymentHandler} className="space-y-5">
         {/* Name Input */}
@@ -201,9 +235,9 @@ const OrderForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-gray-700 transition-all duration-200"
+          className="w-full py-3 bg-blue-500 text-white font-medium rounded-lg shadow hover:bg-blue-600 transition-all duration-200"
         >
-          Submit
+          Pay: ₹{productprice*quantity}
         </button>
       </form>
     </div>

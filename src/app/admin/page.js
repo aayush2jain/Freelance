@@ -14,6 +14,8 @@ const FormWithImages = () => {
     image2: null,
     image3: null,
     image4: null,
+    brochure: null,
+    timeDuration: "",
   });
 
   const handleChange = (e) => {
@@ -51,6 +53,8 @@ const FormWithImages = () => {
           image2: null,
           image3: null,
           image4: null,
+          brochure: null,
+          timeDuration: "",
         });
       }
     } catch (error) {
@@ -83,6 +87,17 @@ const FormWithImages = () => {
             type="number"
             name="price"
             value={formData.price}
+            onChange={handleChange}
+            className="w-full border rounded-md p-2"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">TimeDuration</label>
+          <input
+            type="number"
+            name="timeDuration"
+            value={formData.timeDuration}
             onChange={handleChange}
             className="w-full border rounded-md p-2"
             required
@@ -169,6 +184,17 @@ const FormWithImages = () => {
           <input
             type="file"
             name="image4"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full border rounded-md p-2"
+            required
+          />
+        </div>
+         <div>
+          <label className="block text-sm font-medium mb-1">Upload brochure</label>
+          <input
+            type="file"
+            name="brochure"
             accept="image/*"
             onChange={handleImageChange}
             className="w-full border rounded-md p-2"

@@ -38,6 +38,8 @@ function AppointmentBooking() {
         usermail,
       });
       setMessage(response.data.message);
+      alert("appointment booked successfully");
+      router.push("/");
     } catch (error) {
       setMessage(error.response?.data?.message || "Error booking appointment");
     }
@@ -96,7 +98,7 @@ function AppointmentBooking() {
       <button
         onClick={bookSlot}
         disabled={!selectedSlot || !date}
-        className={`w-full p-3 mt-4 rounded-md text-white ${!selectedSlot || !date ? 'bg-gray-400' : 'bg-green-600'} `}
+        className={`w-full p-3 mt-4 rounded-md text-white ${!selectedSlot || !date ? 'bg-blue-600' : 'bg-green-600'} `}
       >
         Book Slot
       </button>
