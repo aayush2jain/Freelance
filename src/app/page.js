@@ -82,8 +82,8 @@ export default function ImagesSliderDemo() {
   <h1 className="text-center text-4xl sm:text-5xl md:text-6xl font-semibold">Why Us?</h1>
   <div className="flex flex-col md:flex-row mt-[10vh] justify-center space-y-10 md:space-y-0 md:space-x-10">
     {/* Left Section: Image */}
-    <div className="w-full md:w-[40vw] px-[5vw]">
-      <img className="h-[50vh] md:h-[30vh] rounded-lg w-full object-cover" src="images/image1.jpg" alt="About Us" />
+    <div className="w-full h-[40vh] md:w-[40vw] px-[5vw] pt-0">
+      <img className="rounded-lg w-full h-full object-cover" src="images/image1.jpg" alt="About Us" />
     </div>
 
     {/* Right Section: Content */}
@@ -112,8 +112,8 @@ export default function ImagesSliderDemo() {
     </div>
 
     {/* Right Section: Image */}
-    <div className="w-full md:w-[40vw] pt-[5vh] px-[5vw]">
-      <img className="h-[40vh] md:h-[30vh] rounded-lg w-full object-cover" src="images/image1.jpg" alt="Hassle Free Imports" />
+    <div className="w-full h-[40vh] md:h-[50vh] md:w-[40vw] px-[5vw] pt-0 md:pt-[10vh]">
+      <img className="h-full rounded-lg w-full object-cover" src="images/image1.jpg" alt="Hassle Free Imports" />
     </div>
   </div>
 </div>
@@ -123,9 +123,9 @@ export default function ImagesSliderDemo() {
     {
       productDetails.map((product)=>(
         <Link key={product.id} href={{pathname:'/product',query:{id:product._id}}}>
-        <div className="relative hover:scale-110 rounded-3xl w-[80vw] h-[50vh] md:h-[40vh] sm:[40vw] md:w-[25vw] mx-auto shadow-2xl">
+        <div className="relative hover:scale-110 rounded-3xl w-[80vw] h-[40vh] md:h-[40vh] sm:[40vw] md:w-[25vw] mx-auto shadow-2xl">
           <img className="rounded-3xl w-full h-full object-cover" src={product.image[0]} alt={product.name} />
-          <h1 className="absolute bottom-4 text-2xl text-white left-[8vw] font-semibold">{product.name}</h1>
+          <h1 className="absolute bottom-4 text-2xl text-white left-[22vw] md:left-[8vw] font-semibold">{product.name}</h1>
         </div>
         </Link>
       ))
