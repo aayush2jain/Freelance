@@ -48,7 +48,8 @@ function AppointmentBooking() {
   }, [date]);
 
   return (
-     <div className="p-4 max-w-lg mx-auto my-10 bg-white shadow-lg rounded-lg">
+    <div className="bg-gray-100 h-screen pt-[5vh] md:pt-[20vh] ">
+     <div className="p-4 w-[90vw] md:w-[36vw] mx-auto  bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-semibold text-center mb-4">Book a Demo</h1>
       <div className="mb-4">
         <label htmlFor="date" className="block text-xl font-medium">Your Name:</label>
@@ -102,6 +103,7 @@ function AppointmentBooking() {
 
       {/* Success Message */}
       {message && <p className="mt-4 text-green-600 text-xl text-center">{message}</p>}
+    </div>
     </div>
   );
 }

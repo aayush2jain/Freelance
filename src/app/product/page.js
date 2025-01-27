@@ -70,10 +70,10 @@ const Page = () => {
   </div>
 
   {/* Product Details */}
-  <div className="w-[90vw] mx-auto mt-10 bg-white rounded-lg shadow-lg flex flex-col md:flex-row overflow-hidden">
+  <div className="md:w-[90vw] w-full mx-auto mt-10 bg-white rounded-lg shadow-lg flex flex-col md:flex-row overflow-hidden">
     {/* Product Image Section */}
     <div className="w-full md:w-[40%] h-full p-6">
-      <div className="w-full h-[60vh] bg-gray-200 rounded-xl overflow-hidden">
+      <div className="w-full h-[35vh] sm:h-[50vh] md:h-[60vh] bg-gray-200 rounded-xl overflow-hidden">
         <img
           src={mainImage || "https://via.placeholder.com/150"}
           alt={product.name}
@@ -84,7 +84,7 @@ const Page = () => {
         {product.image.map((thumb, index) => (
           <div
             key={index}
-            className={`w-[15%] h-[10vh] border-2 ${
+            className={`w-[20%] md:w-[15%]  h-[8vh] md:h-[10vh] border-2 ${
               thumb === mainImage ? "border-green-500" : "border-gray-300"
             } rounded-md overflow-hidden cursor-pointer hover:scale-105 transition-transform`}
             onClick={() => handleThumbnailClick(thumb)}
@@ -171,8 +171,8 @@ const Page = () => {
 
       {/* Token Amount Info */}
       <h2 className="mt-4 text-gray-600">
-        Pay only 10% as a token. Total token amount: ₹
-        {((quantities[product._id] || 1) * (product.price || 0) * 0.1).toFixed(2)}
+        Pay only 10% as a token. Total amount: ₹
+        {((quantities[product._id] || 1) * (product.price || 0) * 10)}
       </h2>
 
       {/* Book Demo */}
